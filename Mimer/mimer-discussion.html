@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="LibreOffice 4.1.6.2 (Linux)">
+	<META NAME="AUTHOR" CONTENT="Pratik Hingorani">
+	<META NAME="CREATED" CONTENT="20160222;43400000000000">
+	<META NAME="CHANGEDBY" CONTENT="Pratik Hingorani">
+	<META NAME="CHANGED" CONTENT="20160222;43500000000000">
+	<META NAME="AppVersion" CONTENT="15.0000">
+	<META NAME="DocSecurity" CONTENT="0">
+	<META NAME="HyperlinksChanged" CONTENT="false">
+	<META NAME="LinksUpToDate" CONTENT="false">
+	<META NAME="ScaleCrop" CONTENT="false">
+	<META NAME="ShareDoc" CONTENT="false">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.5in 11in; margin: 1in }
+		P { margin-bottom: 0.08in; direction: ltr; widows: 2; orphans: 2 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P STYLE="margin-bottom: 0.11in">Pratik Hingorani</P>
+<P STYLE="margin-bottom: 0.11in">Mimer</P>
+<P STYLE="margin-bottom: 0.11in"><A NAME="_GoBack"></A>Date
+02/18/2016</P>
+<P STYLE="margin-bottom: 0.11in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in">This assignment proved to be a
+little more of a headache than I thought. I spent most of my time
+trouble shooting then actually doing to assignment. I started out but
+getting my webserver to accept xyz format. Never tried to get a
+custom type before so initially I thought how to send this over. But
+then since byte data in buffer it shouldn’t be a problem. So form
+the information in the readup it was fairly easy to read the xyz
+content header. All I had to do otherwise was get the content type
+method to recognize .xyz. Editing the registry to recognize the .xyz
+type was a major issue. Initially I took a registry back up using
+CCleaner also manually exported every registry so it would be easier
+to restore. Restore point didn’t really make sense to me at that
+point. At first I had a bit of an issue reading from the assignment
+so I ended up creating random registries but then a Brief tutorial
+and a sober 3 hours of trying to understand I was able to create the
+registry in the following order	:   	Regedit -&gt; HKEY_CLASSES_ROOT
+-&gt; MIME -&gt; Content Type rightclick -&gt; new -&gt; Key -&gt;
+rename the new registery to application/xyz (like how you did in the
+content type method in MyWebServer -&gt; right lick on the newly
+created registery -&gt; new -&gt; String Value - &gt; name it as
+Extension -&gt; right lick on extenstion -&gt; Modify -&gt; .xyz 
+</P>
+<P STYLE="margin-bottom: 0.11in">AND YOU’RE DONE! MyWebServer
+worked. It downloaded the mimer-data.xyz file to the AppData temp
+directory using localhost:2540/mime-data.xyz.</P>
+<P STYLE="margin-bottom: 0.11in">The shim.bat file made it even
+trickier than I thought. I copied the shim.bat from the assignment.
+Changed the directories to my development director “C:\Users\prati\”
+and removed the rem. I used the xstream and xpp jar files from the
+assignment and put it in the jdk library directory first. The main
+issue was how do I associate shim.bat to .xyz since it would throw a
+DLL error every time I tried to associate it. A day of searching and
+I founding that the xyz extension needed to be added to Indexing
+options.</P>
+<P STYLE="margin-bottom: 0.11in">Open Indexing Options in Control
+Panel -&gt; Advance -&gt; File Types -&gt; then type type in xyz and
+click on add. Next open Control panel -&gt; Programs -&gt; Default
+Programs -&gt; Associate a filetype or protocol with a program -&gt;
+Select .xyz  and click on change program -&gt; looking at more
+programs -&gt; Brows and select shim.bat and you’re done. Now when
+you run the webserver and when you use the browser to access xyz file
+from the server it launches the shim.bat file. Added new xstream
+object and converted it to xml and stored it in mimer-data.output as
+a local file. Next for the Back Channel I tried to integrate it with
+the Handler and the webserver using BCClient.java and the BC Looper
+snippet. Initally I got a xstream ClassDefMissing error. When I
+googled it most of solutions involved wrong libraries so I went to
+xstream.github.io and got the latest library jars. Xstream and xpp3.
+Still was getting the same error. In the assignment I saw that we
+should visit and read xstream. On the website it said to use
+xmlpull.jar so I put it in there. Only after beating my head on a
+stone I read the other .bat files and realized the class path needs
+to be set too for the web server. So I made a bat file called
+StartMyWebServer to set the class path and start the mywebserver.</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%">rem java compile
+MyWebServer.java with xml libraries.</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%">rem change this
+path to point to your own .jar file locations:</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%">javac -cp
+&quot;C:\Program
+Files\Java\jdk1.8.0_74\lib\xstream-1.4.8.jar;C:\Program
+Files\Java\jdk1.8.0_74\lib\xpp3_min-1.1.4c.jar;C:\Program
+Files\Java\jdk1.8.0_74\lib\xmlpull-1.1.3.1.jar&quot; MyWebServer.java
+ BCHandler.java</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%">set
+classpath=%classpath%C:\Users\prati\;C:\Program
+Files\Java\jdk1.8.0_74\lib\xstream-1.4.8.jar;C:\Program
+Files\Java\jdk1.8.0_74\lib\xpp3_min-1.1.4c.jar;C:\Program
+Files\Java\jdk1.8.0_74\lib\xmlpull-1.1.3.1.jar</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%">java MyWebServer</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%">pause</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.11in; line-height: 100%">AND FINALLY WERE
+DONE!</P>
+</BODY>
+</HTML>
